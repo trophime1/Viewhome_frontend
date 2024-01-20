@@ -1,0 +1,1 @@
+export const appUrl = 'https://long-plum-tank-top.cyclic.app'

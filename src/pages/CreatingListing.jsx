@@ -3,6 +3,7 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/s
 import {app} from '../firebase.js'
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import { appUrl } from '../utils/url.jsx';
 
 
 export default function CreatingListing() {
@@ -131,7 +132,7 @@ export default function CreatingListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/listing/create', {
+      const res = await fetch(`${appUrl}/api/listing/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

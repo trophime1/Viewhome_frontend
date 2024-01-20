@@ -1,6 +1,7 @@
 
 import { useState } from 'react'
 import { useNavigate} from 'react-router-dom'
+import { appUrl } from '../utils/url'
 
 export default function ForgetPassword() {
 const navigate = useNavigate()
@@ -13,7 +14,7 @@ const onChangeHandler = (e) =>{
 const forgotPasswordHandler = async (e) =>{
   e.preventDefault()
   try {
-    const res = await fetch ('api/auth/forgotPassword',{
+    const res = await fetch (`${appUrl}/api/auth/forgotPassword`,{
       method: "POST",
       body: JSON.stringify(email)
     })
