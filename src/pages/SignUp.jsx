@@ -22,7 +22,7 @@ export default function SignUp() {
       const res = await axios.post(`${appUrl}/api/auth/signup`, {
        formData,
       });
-      const data = await res.json();
+      const data = await res.data
       console.log(data);
       if (data.success === false) {
         setLoading(false);

@@ -27,7 +27,7 @@ export default function SignIn() {
   {
    formData
   });
-    const data = await res.json();
+    const data = await res.data
     console.log(data)
     if(data.success == false){
       dispatch(signinFail(data.message))

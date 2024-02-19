@@ -19,7 +19,7 @@ export default function Home() {
     const fetchOfferListings = async () => {
       try {
         const res = await axios.get(`${appUrl}/api/listing/get?offer=true&limit=4`);
-        const data = await res.json();
+        const data = await res.data
         setOfferListings(data);
         fetchRentListings();
       } catch (error) {
@@ -29,7 +29,7 @@ export default function Home() {
     const fetchRentListings = async () => {
       try {
         const res = await axios.get(`${appUrl}/api/listing/get?type=rent&limit=4`);
-        const data = await res.json();
+        const data = await res.data
         setRentListings(data);
         fetchSaleListings();
       } catch (error) {
@@ -40,7 +40,7 @@ export default function Home() {
     const fetchSaleListings = async () => {
       try {
         const res = await axios.get(`${appUrl}/api/listing/get?type=sale&limit=4`);
-        const data = await res.json();
+        const data = await res.data
         setSaleListings(data);
       } catch (error) {
         console.log(error);

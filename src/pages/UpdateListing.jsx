@@ -40,7 +40,7 @@ export default function CreateListing() {
     const fetchListing = async () => {
       const listingId = params.listingId;
       const res = await axios.get(`${appUrl}/api/listing/get/${listingId}`);
-      const data = await res.json();
+      const data = await res.data
       if (data.success === false) {
         console.log(data.message);
         return;
@@ -156,7 +156,7 @@ export default function CreateListing() {
           ...formData,
           userRef: currentUser._id,
       });
-      const data = await res.json();
+      const data = await res.data
       setLoading(false);
       if (data.success === false) {
         setError(data.message);

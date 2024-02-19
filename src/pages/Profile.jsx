@@ -66,7 +66,7 @@ export default function Profile() {
       const res = await axios.post(`${appUrl}/api/user/update/${currentUser._id}`, {
        formData,
       });
-      const data = await res.json();
+      const data = await res.data
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));
         return;
@@ -118,7 +118,7 @@ dispatch(signOutUserFailure(error.message))
     try {
       setShowListingsError(false);
       const res = await axios.get(`${appUrl}/api/user/listings/${currentUser._id}`);
-      const data = await res.json();
+      const data = await res.data
       if (data.success === false) {
         setShowListingsError(true);
         return;
@@ -132,7 +132,7 @@ dispatch(signOutUserFailure(error.message))
   const handleListingDelete = async (listingId) => {
     try {
       const res = await axios.delete(`${appUrl}/api/listing/delete/${listingId}`)
-      const data = await res.json();
+      const data = await res.data
       if (data.success === false) {
         console.log(data.message);
         return;

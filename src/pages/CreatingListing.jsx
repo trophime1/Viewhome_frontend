@@ -134,7 +134,7 @@ export default function CreatingListing() {
       setLoading(true);
       setError(false);
       const res = await axios.post(`${appUrl}/api/listing/create`,{...formData,userRef: currentUser._id,});
-      const data = await res.json();
+      const data = await res.data
       setLoading(false);
       if (data.success === false) {
         setError(data.message);
