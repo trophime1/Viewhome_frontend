@@ -4,6 +4,7 @@ import {app} from '../firebase.js'
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import { appUrl } from '../utils/url.jsx';
+import axios from 'axios';
 
 
 export default function CreatingListing() {
@@ -132,13 +133,7 @@ export default function CreatingListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      const res = await fetch(`${appUrl}/api/listing/create`, {
-        method: 'POST',
-        body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
-        }),
-      });
+      const res = await axios.post(`${appUrl}/api/listing/create`,{...formData,userRef: currentUser._id,});
       const data = await res.json();
       setLoading(false);
       if (data.success === false) {
