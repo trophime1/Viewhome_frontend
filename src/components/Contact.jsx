@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { appUrl } from "../utils/url"
+import axios from "axios"
 
 export default function Contact({listing}) {
     const [landlord, setlandord] = useState(null)
@@ -15,7 +16,7 @@ export default function Contact({listing}) {
     {
         const fetchLandlord = async()=>{
             try{
-                const res = await fetch(`${appUrl}/api/user/${listing.userRef}`)
+                const res = await axios.get(`${appUrl}/api/user/${listing.userRef}`)
                 const data = await res.json()
                 setlandord(data);
             }

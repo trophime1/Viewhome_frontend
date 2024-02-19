@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import { appUrl } from '../utils/url'
+import axios from 'axios'
 
 export default function ForgetPassword() {
 const navigate = useNavigate()
@@ -14,9 +15,8 @@ const onChangeHandler = (e) =>{
 const forgotPasswordHandler = async (e) =>{
   e.preventDefault()
   try {
-    const res = await fetch (`${appUrl}/api/auth/forgotPassword`,{
-      method: "POST",
-      body: JSON.stringify(email)
+    const res = await axios.post(`${appUrl}/api/auth/forgotPassword`,{
+    email
     })
     const data = await res.json()
     console.log(data)

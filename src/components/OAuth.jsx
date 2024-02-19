@@ -5,6 +5,7 @@ import { signinSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { appUrl } from '../utils/url';
+import axios from 'axios';
 
 export default function OAuth() {
     const dispatch = useDispatch();
@@ -16,18 +17,13 @@ export default function OAuth() {
 
        const result = await signInWithPopup(auth,provider)
     //    console.log(result)
-    const res = await fetch (`${appUrl}/api/auth/google`,{
-        method: 'POST',
-        headers:{
-            'Content-Type':'application/json'
-            },
-            body: JSON.stringify({
+    const res = await axios.post(`${appUrl}/api/auth/google`,{
                 name:result.user.displayName,
                 email: result.user.email, 
                 photo: result.user.photoURL
                 })
     
-    })
+   
     const data = await res.json()
     dispatch(signinSuccess(data));
       navigate('/');

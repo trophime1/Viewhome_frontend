@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { signinStart, signinFail ,signinSuccess } from '../redux/user/userSlice'
 import OAuth from '../components/OAuth';
 import { appUrl } from '../utils/url';
+import axios from 'axios';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({})
@@ -22,10 +23,10 @@ export default function SignIn() {
   e.preventDefault();
   try {
   dispatch(signinStart())
-  const res = await fetch (`${appUrl}/api/auth/signin`,
-  {method: "POST",
-   headers:{ "Content-Type": "application/json" },
-    body: JSON.stringify(formData)});
+  const res = await axios.post (`${appUrl}/api/auth/signin`,
+  {
+   formData
+  });
     const data = await res.json();
     console.log(data)
     if(data.success == false){

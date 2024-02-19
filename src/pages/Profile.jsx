@@ -6,6 +6,7 @@ import { updateUserFailure, updateUserSuccess, updateUserStart, deleteUserFailur
 import { useDispatch } from "react-redux";
 import {Link} from 'react-router-dom'
 import { appUrl } from "../utils/url";
+import axios from "axios";
 
 
 export default function Profile() {
@@ -62,12 +63,8 @@ export default function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`${appUrl}/api/user/update/${currentUser._id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+      const res = await axios.post(`${appUrl}/api/user/update/${currentUser._id}`, {
+       formData,
       });
       const data = await res.json();
       if (data.success === false) {
@@ -86,7 +83,7 @@ export default function Profile() {
   {
     try{
       dispatch(deleteUserStart())
-      const res = await fetch(`${appUrl}/api/user/delete/${currentUser._id}`,{
+      const res = await axios.delete(`${appUrl}/api/user/delete/${currentUser._id}`,{
         method: 'DELETE',
 
       });
@@ -104,7 +101,7 @@ export default function Profile() {
   const handleSignOut = async ()=>{
 try {
   dispatch(signOutUserStart())
-  const res = await fetch(`${appUrl}/api/auth/signout`)
+  const res = await axios.get(`${appUrl}/api/auth/signout`)
   const data = res.json()
   if (data.success === false) {
     dispatch(signOutUserFailure(data.message))
@@ -120,7 +117,7 @@ dispatch(signOutUserFailure(error.message))
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-      const res = await fetch(`${appUrl}/api/user/listings/${currentUser._id}`);
+      const res = await axios.get(`${appUrl}/api/user/listings/${currentUser._id}`);
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
@@ -134,9 +131,7 @@ dispatch(signOutUserFailure(error.message))
   };
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await fetch(`${appUrl}/api/listing/delete/${listingId}`, {
-        method: 'DELETE',
-      });
+      const res = await axios.delete(`${appUrl}/api/listing/delete/${listingId}`)
       const data = await res.json();
       if (data.success === false) {
         console.log(data.message);
